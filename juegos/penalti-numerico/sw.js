@@ -1,6 +1,6 @@
 /* Penalti Numérico · service worker
    Cambia VERSION cada vez que subas cambios para que las pizarras descarguen la versión nueva. */
-const VERSION = 'penalti-numerico-v2';
+const VERSION = 'penalti-numerico-v4';
 const FILES = [
   './',
   './index.html',
