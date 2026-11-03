@@ -1,13 +1,16 @@
 /* Penalti Numérico · service worker
    Cambia VERSION cada vez que subas cambios para que las pizarras descarguen la versión nueva. */
-const VERSION = 'penalti-numerico-v1';
+const VERSION = 'penalti-numerico-v2';
 const FILES = [
   './',
   './index.html',
   './manifest.webmanifest',
   './fonts/andika-latin-400-normal.woff2',
   './fonts/andika-latin-700-normal.woff2',
-  './fonts/bungee-latin-400-normal.woff2',
+  './fonts/barlow-condensed-latin-700-normal.woff2',
+  './fonts/barlow-condensed-latin-700-italic.woff2',
+  './fonts/barlow-condensed-latin-800-italic.woff2',
+  './fonts/barlow-condensed-latin-900-italic.woff2',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/maskable-512.png',
