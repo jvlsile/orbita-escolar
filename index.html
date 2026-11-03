@@ -89,6 +89,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0}
 
 /* juegos: cada uno con sus colores */
 .g-patrulla{--hull:#F4F1FF;--nose:#FFD84D;--fin:#FF6B5B;--trim:#0D1233;--tag-bg:#E4E6FF;--tag-ink:#1C2470;--go-bg:#0D1233;--go-ink:#FFD84D}
+.g-penalti{--hull:#F4FFF6;--nose:#1F8A47;--fin:#FFC83D;--trim:#0B1430;--tag-bg:#DDF5E5;--tag-ink:#0F5A2C;--go-bg:#1F8A47;--go-ink:#FFFFFF}
 .g-palabra{--hull:#FFFCF4;--nose:#2440C8;--fin:#FFC52E;--trim:#16204A;--tag-bg:#FFF0C2;--tag-ink:#6A4300;--go-bg:#2440C8;--go-ink:#FFFFFF}
 
 /* rampas futuras */
@@ -245,19 +246,21 @@ footer b{font-family:var(--display);font-weight:700;color:var(--ink)}
         </a>
       </li>
 
-      <li class="pad">
-        <div class="slot">
+      <li class="pad g-penalti">
+        <a href="juegos/penalti-numerico/">
           <div class="stage" aria-hidden="true">
             <svg class="tower"><use href="#tower"/></svg>
-            <div class="deck" style="opacity:.5"></div>
-            <svg class="ghost"><use href="#ghost"/></svg>
+            <div class="deck"></div>
+            <div class="smoke"><i></i><i></i><i></i><i></i></div>
+            <div class="rocket"><svg class="fire" viewBox="0 0 120 240"><path d="M38 186 Q60 262 82 186Z" fill="#FF8A1F"/><path d="M48 186 Q60 236 72 186Z" fill="#FFE27A"/></svg><svg><use href="#rocket"/></svg><span class="porthole"><img src="juegos/penalti-numerico/icons/icon-192.png" alt="" width="192" height="192"></span></div>
           </div>
           <div class="plate">
-            <span class="count">Rampa 3</span>
-            <h3>Próximo lanzamiento</h3>
-            <p>Aquí despegará un juego nuevo.</p>
+            <h3>Penalti Numérico</h3>
+            <span class="tag">Matemáticas · 1.º a 6.º</span>
+            <p>Resuelve antes que el otro equipo y marca gol.</p>
+            <span class="go">Despegar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
           </div>
-        </div>
+        </a>
       </li>
 
       <li class="pad">

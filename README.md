@@ -8,6 +8,7 @@ Plataforma de juegos educativos para primaria. Cada juego es una aplicación web
 | --- | --- | --- |
 | Patrulla Numérica | `juegos/patrulla-numerica/` | Matemáticas, 1.º a 6.º de primaria |
 | Palabra Secreta | `juegos/palabra-secreta/` | Lengua, 2.º de primaria |
+| Penalti Numérico | `juegos/penalti-numerico/` | Matemáticas, 1.º a 6.º de primaria (duelo por equipos o contra la máquina) |
 
 La portada (`index.html`) es provisional: enlaza a los juegos mientras se diseña la plataforma común.
 
