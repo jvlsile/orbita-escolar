@@ -3,33 +3,311 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0D1233">
+<meta name="theme-color" content="#121844">
+<meta name="description" content="Órbita Escolar: juegos educativos para primaria. Gratis, sin cuentas, sin anuncios y sin conexión.">
 <title>Órbita Escolar</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='16' fill='%23FFD23F'/%3E%3Cellipse cx='32' cy='32' rx='29' ry='10' fill='none' stroke='%23F6F1FF' stroke-width='5' transform='rotate(-20 32 32)'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{color-scheme:dark;--bg:#0D1233;--panel:#1A2262;--line:#3B49B0;--ink:#F4F2FF;--ink2:#B7BEF0;--lemon:#FFD84D}
+@font-face{font-family:"Fredoka";font-weight:600;font-display:swap;src:url(fonts/fredoka-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Fredoka";font-weight:700;font-display:swap;src:url(fonts/fredoka-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Andika";font-weight:400;font-display:swap;src:url(fonts/andika-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Andika";font-weight:700;font-display:swap;src:url(fonts/andika-latin-700-normal.woff2) format("woff2")}
+
+:root{
+  --night:#121844; --dusk:#2B2569; --plum:#5E3878; --ember:#D9694A; --glow:#F7A55A;
+  --ink:#1E2033; --ink-2:#4A4C66; --paper:#FFFDF7; --concrete:#ECE5D6; --concrete-2:#DDD3BF;
+  --lemon:#FFD23F; --star:#F6F1FF; --star-2:#C9C3F2; --go:#2FBF71;
+  --stage-h:clamp(230px,34vh,330px);
+  --gutter:clamp(16px,4vw,48px);
+  --display:"Fredoka","Andika",ui-rounded,system-ui,sans-serif;
+  --text:"Andika",system-ui,sans-serif;
+  color-scheme:light;
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:400 17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:32px 16px}
-main{max-width:860px;margin:0 auto;display:grid;gap:20px}
-h1{margin:0;font-size:clamp(32px,7vw,52px);line-height:1.05}
-h1 span{color:var(--lemon)}
-p{margin:0;color:var(--ink2)}
-.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
-a.game{display:flex;gap:14px;align-items:center;padding:16px;border:2px solid var(--line);border-radius:18px;background:var(--panel);color:inherit;text-decoration:none;min-height:96px}
-a.game:hover,a.game:focus-visible{border-color:var(--lemon);outline:none}
-a.game img{width:64px;height:64px;border-radius:14px;flex:none}
-a.game b{display:block;font-size:20px}
-a.game small{color:var(--ink2);font-size:15px}
-footer{color:var(--ink2);font-size:14px}
+html{scrollbar-color:var(--plum) var(--concrete)}
+body{margin:0;background:var(--concrete);color:var(--ink);font:400 1.125rem/1.5 var(--text);-webkit-font-smoothing:antialiased;caret-color:var(--ember)}
+::selection{background:var(--lemon);color:var(--ink)}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--lemon);outline-offset:4px;border-radius:12px}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0}
+
+/* ---------- Cielo ---------- */
+.sky{position:relative;overflow:hidden;color:var(--star);
+  background:linear-gradient(180deg,var(--night) 0%,#1A1E55 55%,var(--dusk) 100%);
+  padding:clamp(18px,3vh,32px) var(--gutter) clamp(28px,5vh,56px)}
+.stars{position:absolute;inset:0;width:100%;height:100%;fill:var(--star);pointer-events:none}
+.bar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:clamp(1.35rem,2.4vw,1.7rem);letter-spacing:-.01em}
+.brand svg{width:44px;height:44px;flex:none}
+.brand .word{white-space:nowrap}.brand .word span{color:var(--lemon)}
+.bar-link{white-space:nowrap;font-family:var(--display);font-weight:600;font-size:1rem;color:var(--star-2);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;padding:10px 4px}
+.bar-link:hover{color:var(--star)}
+.hello{position:relative;max-width:1240px;margin:clamp(20px,5vh,56px) auto 0;display:grid;gap:12px}
+.hello h1{font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.025em;max-width:13ch}
+.hello p{font-size:clamp(1.15rem,1.8vw,1.4rem);color:var(--star-2);margin:0;max-width:34ch}
+.planet{position:absolute;right:calc(var(--gutter) - 10px);top:clamp(56px,9vh,96px);width:clamp(130px,23vw,300px);height:auto;overflow:visible}
+
+/* ---------- Plataforma ---------- */
+.field{position:relative;
+  background:
+   linear-gradient(180deg,var(--dusk) 0,var(--plum) calc(var(--stage-h)*.55),var(--ember) calc(var(--stage-h) - 30px),var(--glow) var(--stage-h),var(--concrete) var(--stage-h));
+}
+.field::before{content:"";position:absolute;left:0;right:0;top:var(--stage-h);height:16px;z-index:1;
+  background:repeating-linear-gradient(-45deg,var(--lemon) 0 14px,var(--ink) 14px 28px)}
+.pads{list-style:none;margin:0 auto;padding:0 var(--gutter) 8px;max-width:1336px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px)}
+.pad{position:relative;display:flex;flex-direction:column}
+.pad > a,.pad > .slot{display:flex;flex-direction:column;flex:1;text-decoration:none;border-radius:20px}
+.stage{position:relative;height:var(--stage-h)}
+.tower{position:absolute;bottom:0;height:80%;width:clamp(26px,2.6vw,34px);left:calc(50% - var(--stage-h)*.21 - clamp(34px,3.4vw,44px))}
+.deck{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:calc(var(--stage-h)*.62);height:12px;border-radius:6px 6px 0 0;background:var(--ink)}
+.rocket{position:absolute;left:50%;bottom:calc(12px - var(--stage-h)*.147);width:calc(var(--stage-h)*.40);aspect-ratio:1/2;translate:-50% 0;
+  transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+.rocket svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.porthole{position:absolute;left:50%;top:41.67%;width:46%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;overflow:hidden;background:#fff}
+.porthole img{position:absolute;left:50%;top:60%;width:150%;height:auto;translate:-50% -50%;display:block}
+.fire{opacity:0;transform-origin:50% 78%;transform:scaleY(.2)}
+
+.plate{position:relative;z-index:2;margin-top:28px;flex:1;display:flex;flex-direction:column;gap:8px;
+  background:var(--paper);border:3px solid var(--ink);border-radius:20px;padding:18px 18px 18px;
+  box-shadow:0 14px 28px -12px rgba(30,32,51,.45),0 2px 0 rgba(30,32,51,.08)}
+.plate h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.05;letter-spacing:-.01em}
+.tag{align-self:flex-start;font-family:var(--display);font-weight:600;font-size:.95rem;padding:3px 12px;border-radius:999px;background:var(--tag-bg);color:var(--tag-ink)}
+.plate p{margin:0;color:var(--ink-2);font-size:1.05rem;line-height:1.4}
+.go{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:999px;
+  font-family:var(--display);font-weight:700;font-size:1.3rem;background:var(--go-bg);color:var(--go-ink);
+  box-shadow:inset 0 -5px 0 rgba(0,0,0,.22);transition:transform .2s cubic-bezier(.2,.9,.3,1),box-shadow .2s}
+.go svg{width:24px;height:24px}
+.pad > a:hover .rocket{transform:translateY(-8px)}
+.pad > a:hover .go{transform:translateY(-2px)}
+.pad > a:active .go{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.22)}
+.pad > a:focus-visible{outline:none}
+.pad > a:focus-visible .plate{outline:5px solid var(--lemon);outline-offset:4px}
+
+/* juegos: cada uno con sus colores */
+.g-patrulla{--hull:#F4F1FF;--nose:#FFD84D;--fin:#FF6B5B;--trim:#0D1233;--tag-bg:#E4E6FF;--tag-ink:#1C2470;--go-bg:#0D1233;--go-ink:#FFD84D}
+.g-palabra{--hull:#FFFCF4;--nose:#2440C8;--fin:#FFC52E;--trim:#16204A;--tag-bg:#FFF0C2;--tag-ink:#6A4300;--go-bg:#2440C8;--go-ink:#FFFFFF}
+
+/* rampas futuras */
+.slot .plate{background:transparent;border:3px dashed #A79C86;box-shadow:none}
+.slot h3{color:var(--ink-2)}
+.slot .ghost{position:absolute;left:50%;bottom:calc(12px - var(--stage-h)*.147);width:calc(var(--stage-h)*.40);aspect-ratio:1/2;translate:-50% 0;opacity:.55}
+.slot .tower{opacity:.45}
+.count{font-family:var(--display);font-weight:600;color:#6B6250;font-size:1rem}
+
+/* ---------- Informe ---------- */
+.report{width:calc(100% - 2*var(--gutter));max-width:1240px;margin:clamp(40px,7vh,72px) auto 0}
+.report h2{font-size:clamp(1.7rem,3vw,2.3rem);letter-spacing:-.015em}
+.report > p{margin:6px 0 20px;color:var(--ink-2);max-width:60ch}
+.console{list-style:none;margin:0;padding:clamp(18px,3vw,28px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 28px;
+  background:var(--ink);color:var(--star);border-radius:24px;box-shadow:0 18px 36px -18px rgba(30,32,51,.6)}
+.console li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;align-content:start}
+.led{width:14px;height:14px;margin-top:6px;border-radius:50%;background:var(--go);box-shadow:0 0 0 4px rgba(47,191,113,.22),0 0 12px 2px rgba(47,191,113,.55)}
+.console b{font-family:var(--display);font-weight:600;font-size:1.15rem;line-height:1.25}
+.console span{grid-column:2;color:var(--star-2);font-size:1rem;line-height:1.4}
+.install{margin:22px 0 0;color:var(--ink-2);max-width:68ch}
+footer{width:calc(100% - 2*var(--gutter));max-width:1240px;margin:clamp(40px,6vh,64px) auto 0;padding:22px 0 36px;border-top:2px solid var(--concrete-2);color:var(--ink-2);font-size:1rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+footer b{font-family:var(--display);font-weight:700;color:var(--ink)}
+
+/* ---------- Despegue ---------- */
+.launching .rocket{animation:liftoff 1.15s cubic-bezier(.55,0,.85,.35) .28s forwards, rumble .28s linear}
+.launching .fire{animation:flame .12s linear infinite alternate;opacity:1}
+.launching .smoke i{animation:puff .9s cubic-bezier(.1,.8,.3,1) forwards}
+.smoke{position:absolute;left:50%;bottom:6px;width:0;height:0;pointer-events:none}
+.smoke i{position:absolute;width:84px;height:84px;margin:-42px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFFFFF,#E9E1D3 70%);opacity:0;transform:scale(.2)}
+.smoke i:nth-child(1){--dx:-90px}.smoke i:nth-child(2){--dx:90px}.smoke i:nth-child(3){--dx:-34px;animation-delay:.1s!important}.smoke i:nth-child(4){--dx:34px;animation-delay:.1s!important}
+@keyframes liftoff{to{transform:translateY(-130vh)}}
+@keyframes rumble{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+@keyframes flame{from{transform:scaleY(1.1)}to{transform:scaleY(1.5)}}
+@keyframes puff{0%{opacity:1;transform:translate(0,0) scale(.3)}60%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),-24px) scale(1.9)}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1020px){
+  .pads{grid-template-columns:repeat(4,minmax(250px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--gutter);padding-bottom:20px;scrollbar-width:thin}
+  .pad{scroll-snap-align:start}
+  .console{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .planet{opacity:.9}
+}
+@media (max-width:640px){
+  :root{--stage-h:240px}
+  .pads{grid-template-columns:repeat(4,74vw)}
+  .hello p{max-width:20ch}
+  .bar-link{white-space:nowrap;font-size:.95rem}
+  .planet{top:auto;bottom:-30px;right:-36px;width:150px;opacity:.75}
+  .hello h1{max-width:11ch}
+  .console{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="lattice" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M0 0L30 30M30 0L0 30" stroke="#1E2033" stroke-width="2.5"/>
+    </pattern>
+    <symbol id="rocket" viewBox="0 0 120 240">
+      <path d="M30 118 L6 170 L8 196 L34 176Z" fill="var(--fin)" stroke="var(--trim)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M90 118 L114 170 L112 196 L86 176Z" fill="var(--fin)" stroke="var(--trim)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M40 172 H80 L86 190 H34Z" fill="#3A3F55" stroke="var(--trim)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M60 4 C92 38 98 92 95 174 H25 C22 92 28 38 60 4Z" fill="var(--hull)" stroke="var(--trim)" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M60 4 C76 20 85 38 90 56 H30 C35 38 44 20 60 4Z" fill="var(--nose)" stroke="var(--trim)" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M25.6 150 H94.6 L95 174 H25Z" fill="var(--nose)" stroke="var(--trim)" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M36 66 C34 92 34 120 35 144" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <circle cx="60" cy="100" r="31" fill="#fff" stroke="var(--trim)" stroke-width="7"/>
+      <path d="M60 174 V150" stroke="var(--trim)" stroke-width="3"/>
+    </symbol>
+    <symbol id="ghost" viewBox="0 0 120 240">
+      <path d="M60 4 C92 38 98 92 95 174 H25 C22 92 28 38 60 4Z M30 118 L6 170 L8 196 L34 176 M90 118 L114 170 L112 196 L86 176 M40 174 L34 190 H86 L80 174" fill="none" stroke="#7A705C" stroke-width="3.5" stroke-dasharray="9 8" stroke-linejoin="round" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="tower" viewBox="0 0 30 300" preserveAspectRatio="none">
+      <rect x="2" y="0" width="26" height="300" fill="url(#lattice)"/>
+      <path d="M2 0V300M28 0V300" stroke="#1E2033" stroke-width="4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="sky">
+  <svg class="stars" viewBox="0 0 1600 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="663" cy="154" r="1.8" opacity="0.5"/><circle cx="148" cy="96" r="1.4" opacity="0.5"/><circle cx="1039" cy="219" r="1" opacity="0.5"/><circle cx="888" cy="428" r="1" opacity="0.7"/><circle cx="185" cy="434" r="1" opacity="0.5"/><circle cx="457" cy="63" r="2.4" opacity="1"/><circle cx="101" cy="226" r="1" opacity="0.7"/><circle cx="593" cy="429" r="1" opacity="0.5"/><circle cx="1169" cy="315" r="2.4" opacity="0.7"/><circle cx="211" cy="192" r="1.4" opacity="0.5"/><circle cx="1121" cy="64" r="2.4" opacity="0.5"/><circle cx="1267" cy="210" r="1.8" opacity="1"/><circle cx="1591" cy="321" r="1.8" opacity="1"/><circle cx="740" cy="306" r="1" opacity="0.7"/><circle cx="1431" cy="249" r="1" opacity="0.9"/><circle cx="1075" cy="506" r="1.4" opacity="1"/><circle cx="589" cy="74" r="1" opacity="1"/><circle cx="337" cy="350" r="1" opacity="1"/><circle cx="863" cy="40" r="1" opacity="0.9"/><circle cx="696" cy="358" r="2.4" opacity="1"/><circle cx="1187" cy="467" r="1" opacity="0.5"/><circle cx="552" cy="485" r="1" opacity="0.5"/><circle cx="1497" cy="317" r="2.4" opacity="1"/><circle cx="582" cy="395" r="1.4" opacity="0.5"/><circle cx="945" cy="363" r="1" opacity="0.5"/><circle cx="1011" cy="60" r="1" opacity="0.9"/><circle cx="264" cy="253" r="1.8" opacity="1"/><circle cx="1016" cy="82" r="1" opacity="1"/><circle cx="822" cy="284" r="1" opacity="1"/><circle cx="1126" cy="285" r="1.8" opacity="0.9"/><circle cx="1398" cy="389" r="1" opacity="0.7"/><circle cx="169" cy="180" r="1" opacity="0.7"/><circle cx="1348" cy="238" r="1" opacity="1"/><circle cx="1206" cy="186" r="1.4" opacity="0.9"/><circle cx="8" cy="149" r="1.8" opacity="0.9"/><circle cx="1248" cy="326" r="1" opacity="0.5"/><circle cx="935" cy="401" r="1.8" opacity="1"/><circle cx="807" cy="106" r="1.8" opacity="1"/><circle cx="127" cy="195" r="1" opacity="0.7"/><circle cx="902" cy="166" r="1" opacity="0.9"/><circle cx="1230" cy="53" r="1" opacity="0.5"/><circle cx="1160" cy="154" r="2.4" opacity="0.5"/><circle cx="744" cy="26" r="1" opacity="0.7"/><circle cx="1257" cy="385" r="1" opacity="0.9"/><circle cx="711" cy="372" r="1.8" opacity="0.5"/><circle cx="236" cy="499" r="1.8" opacity="1"/><circle cx="990" cy="319" r="1" opacity="0.7"/><circle cx="209" cy="350" r="1.4" opacity="1"/><circle cx="1417" cy="165" r="2.4" opacity="0.5"/><circle cx="420" cy="370" r="1" opacity="0.5"/><circle cx="1552" cy="305" r="1" opacity="0.9"/><circle cx="1061" cy="375" r="1" opacity="0.9"/><circle cx="1580" cy="228" r="2.4" opacity="0.9"/><circle cx="1303" cy="228" r="2.4" opacity="0.7"/><circle cx="490" cy="410" r="1" opacity="0.7"/><circle cx="1060" cy="504" r="1.4" opacity="0.5"/><circle cx="57" cy="286" r="1.8" opacity="0.9"/><circle cx="396" cy="352" r="1.8" opacity="0.9"/><circle cx="746" cy="82" r="1" opacity="0.5"/><circle cx="464" cy="481" r="1" opacity="0.9"/><circle cx="418" cy="494" r="2.4" opacity="0.5"/><circle cx="981" cy="352" r="1" opacity="0.5"/><circle cx="795" cy="204" r="1.8" opacity="0.7"/><circle cx="888" cy="340" r="1" opacity="1"/><circle cx="948" cy="411" r="1" opacity="0.7"/><circle cx="348" cy="130" r="1" opacity="0.7"/><circle cx="1209" cy="476" r="1" opacity="1"/><circle cx="1346" cy="358" r="1" opacity="0.7"/><circle cx="43" cy="14" r="1" opacity="0.7"/><circle cx="888" cy="199" r="1" opacity="0.5"/></svg>
+  <nav class="bar" aria-label="Principal">
+    <a class="brand" href="./" aria-label="Órbita Escolar, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="#FFD23F"/><path d="M47 25a15 15 0 0 1-30 14" fill="#F7A55A" opacity=".55"/><ellipse cx="32" cy="32" rx="29" ry="10" fill="none" stroke="#F6F1FF" stroke-width="4.5" transform="rotate(-20 32 32)"/><circle cx="57" cy="22" r="4" fill="#F6F1FF"/></svg>
+      <span class="word">Órbita <span>Escolar</span></span>
+    </a>
+    <a class="bar-link" href="#informe">Docentes y familias</a>
+  </nav>
+  <svg class="planet" viewBox="0 0 300 300" aria-hidden="true">
+    <defs>
+      <radialGradient id="pg" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7EE3C9"/><stop offset=".55" stop-color="#2F9E9A"/><stop offset="1" stop-color="#1B3F6E"/></radialGradient>
+    </defs>
+    <ellipse id="orb" cx="150" cy="150" rx="142" ry="46" fill="none" stroke="#C9C3F2" stroke-opacity=".5" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round" transform="rotate(-18 150 150)"/>
+    <circle cx="150" cy="150" r="78" fill="url(#pg)"/>
+    <path d="M96 118c22 8 34-6 56 2s18 26 44 22M84 170c26-6 40 10 70 4s34-18 58-10" stroke="#BDF3E3" stroke-opacity=".5" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M150 72a78 78 0 0 1 0 156a78 78 0 0 0 0-156" fill="#121844" opacity=".28"/>
+    <g>
+      <circle r="8" fill="#FFD23F" stroke="#121844" stroke-width="3"/>
+      <animateMotion id="sat" dur="24s" repeatCount="indefinite" path="M8 150a142 46 0 1 0 284 0a142 46 0 1 0-284 0" rotate="0"/>
+    </g>
+  </svg>
+  <div class="hello">
+    <h1>¿Qué misión despega hoy?</h1>
+    <p>Toca un cohete para empezar a jugar.</p>
+  </div>
+</header>
+
 <main>
-  <header><h1>Órbita <span>Escolar</span></h1><p>Juegos educativos para primaria. Elige un juego para empezar.</p></header>
-  <section class="games" aria-label="Juegos">
-    <a class="game" href="juegos/patrulla-numerica/"><img src="juegos/patrulla-numerica/icons/icon-192.png" alt=""><span><b>Patrulla Numérica</b><small>Matemáticas · 1.º a 6.º. Defiende el planeta resolviendo operaciones.</small></span></a>
-    <a class="game" href="juegos/palabra-secreta/"><img src="juegos/palabra-secreta/icons/icon-192.png" alt=""><span><b>Palabra Secreta</b><small>Lengua · 2.º. Sigue las pistas de Lupi y descubre la palabra.</small></span></a>
+  <section class="field" aria-labelledby="misiones">
+    <h2 id="misiones" class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Juegos</h2>
+    <ul class="pads">
+
+      <li class="pad g-patrulla">
+        <a href="juegos/patrulla-numerica/">
+          <div class="stage" aria-hidden="true">
+            <svg class="tower"><use href="#tower"/></svg>
+            <div class="deck"></div>
+            <div class="smoke"><i></i><i></i><i></i><i></i></div>
+            <div class="rocket"><svg class="fire" viewBox="0 0 120 240"><path d="M38 186 Q60 262 82 186Z" fill="#FF8A1F"/><path d="M48 186 Q60 236 72 186Z" fill="#FFE27A"/></svg><svg><use href="#rocket"/></svg><span class="porthole"><img src="juegos/patrulla-numerica/icons/icon-192.png" alt="" width="192" height="192"></span></div>
+          </div>
+          <div class="plate">
+            <h3>Patrulla Numérica</h3>
+            <span class="tag">Matemáticas · 1.º a 6.º</span>
+            <p>Defiende el planeta resolviendo operaciones.</p>
+            <span class="go">Despegar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+
+      <li class="pad g-palabra">
+        <a href="juegos/palabra-secreta/">
+          <div class="stage" aria-hidden="true">
+            <svg class="tower"><use href="#tower"/></svg>
+            <div class="deck"></div>
+            <div class="smoke"><i></i><i></i><i></i><i></i></div>
+            <div class="rocket"><svg class="fire" viewBox="0 0 120 240"><path d="M38 186 Q60 262 82 186Z" fill="#FF8A1F"/><path d="M48 186 Q60 236 72 186Z" fill="#FFE27A"/></svg><svg><use href="#rocket"/></svg><span class="porthole"><img src="juegos/palabra-secreta/icons/icon-192.png" alt="" width="192" height="192"></span></div>
+          </div>
+          <div class="plate">
+            <h3>Palabra Secreta</h3>
+            <span class="tag">Lengua · 2.º</span>
+            <p>Sigue las pistas de Lupi y descubre la palabra.</p>
+            <span class="go">Despegar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+
+      <li class="pad">
+        <div class="slot">
+          <div class="stage" aria-hidden="true">
+            <svg class="tower"><use href="#tower"/></svg>
+            <div class="deck" style="opacity:.5"></div>
+            <svg class="ghost"><use href="#ghost"/></svg>
+          </div>
+          <div class="plate">
+            <span class="count">Rampa 3</span>
+            <h3>Próximo lanzamiento</h3>
+            <p>Aquí despegará un juego nuevo.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="pad">
+        <div class="slot">
+          <div class="stage" aria-hidden="true">
+            <svg class="tower"><use href="#tower"/></svg>
+            <div class="deck" style="opacity:.5"></div>
+            <svg class="ghost"><use href="#ghost"/></svg>
+          </div>
+          <div class="plate">
+            <span class="count">Rampa 4</span>
+            <h3>Próximo lanzamiento</h3>
+            <p>Esta rampa espera otra misión.</p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
   </section>
-  <footer>Portada provisional. Sin cuentas, anuncios ni envío de datos: el progreso se guarda en cada dispositivo.</footer>
+
+  <section class="report" id="informe" aria-labelledby="informe-t">
+    <h2 id="informe-t">Informe de la base</h2>
+    <p>Para docentes y familias: así funcionan los juegos de Órbita Escolar.</p>
+    <ul class="console">
+      <li><i class="led" aria-hidden="true"></i><b>Sin cuentas</b><span>Se juega al momento, sin registrarse.</span></li>
+      <li><i class="led" aria-hidden="true"></i><b>Sin anuncios</b><span>Nada distrae de la partida.</span></li>
+      <li><i class="led" aria-hidden="true"></i><b>Funciona sin conexión</b><span>Tras abrir un juego una vez, sigue funcionando sin internet.</span></li>
+      <li><i class="led" aria-hidden="true"></i><b>Datos en casa</b><span>El progreso se guarda solo en este dispositivo.</span></li>
+    </ul>
+    <p class="install">Para tenerlo como una app: abre un juego en la tableta o el móvil y elige «Añadir a pantalla de inicio».</p>
+  </section>
 </main>
+
+<footer>
+  <span><b>Órbita Escolar</b> · juegos de primaria hechos en el aula</span>
+  <span>Gratis y sin publicidad</span>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var planet = document.querySelector('.planet');
+  if (reduce && planet && planet.pauseAnimations) planet.pauseAnimations();
+  document.querySelectorAll('.pad > a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if (reduce || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.parentNode.classList.contains('launching')) { e.preventDefault(); return; }
+      e.preventDefault();
+      a.parentNode.classList.add('launching');
+      setTimeout(function(){ location.href = a.href; }, 1050);
+    });
+  });
+  // Al volver con el botón «atrás», el cohete vuelve a su rampa.
+  window.addEventListener('pageshow', function(){
+    document.querySelectorAll('.launching').forEach(function(p){ p.classList.remove('launching'); });
+  });
+})();
+</script>
 </body>
 </html>

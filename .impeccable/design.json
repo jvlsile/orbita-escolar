@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T17:31:52.813540Z",
+  "title": "Design System: Órbita Escolar",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Tinta",
+        "tonalRamp": [
+          "#0E0F1A",
+          "#1E2033",
+          "#33354C",
+          "#4A4C66",
+          "#6A6C86",
+          "#9294AB",
+          "#C1C2D2",
+          "#E9E9F1"
+        ]
+      },
+      "lemon": {
+        "role": "secondary",
+        "displayName": "Limón de seguridad",
+        "tonalRamp": [
+          "#5C4600",
+          "#8A6A00",
+          "#B88E00",
+          "#E6B300",
+          "#FFD23F",
+          "#FFDE73",
+          "#FFEBA8",
+          "#FFF7DC"
+        ]
+      },
+      "concrete": {
+        "role": "neutral",
+        "displayName": "Hormigón",
+        "tonalRamp": [
+          "#3A352B",
+          "#5A5242",
+          "#7A705C",
+          "#A79C86",
+          "#C9BEA8",
+          "#DDD3BF",
+          "#ECE5D6",
+          "#F8F4EC"
+        ]
+      },
+      "night": {
+        "role": "tertiary",
+        "displayName": "Noche",
+        "tonalRamp": [
+          "#0A0D2A",
+          "#121844",
+          "#1A1E55",
+          "#2B2569",
+          "#4A4390",
+          "#7B74B8",
+          "#C9C3F2",
+          "#F6F1FF"
+        ]
+      },
+      "go": {
+        "role": "accent",
+        "displayName": "Piloto verde",
+        "tonalRamp": [
+          "#0B3D22",
+          "#136137",
+          "#1C8A4F",
+          "#2FBF71",
+          "#5ED193",
+          "#8FE0B4",
+          "#C2EFD6",
+          "#EBFAF2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Pregunta principal del cielo."
+      },
+      "title": {
+        "displayName": "Título de rampa",
+        "purpose": "Nombre de cada juego y titulares de sección."
+      },
+      "label": {
+        "displayName": "Etiqueta",
+        "purpose": "Chips de asignatura y curso, número de rampa."
+      },
+      "body": {
+        "displayName": "Lectura",
+        "purpose": "Todo el texto de lectura, Andika."
+      }
+    },
+    "shadows": [
+      {
+        "name": "plate",
+        "value": "0 14px 28px -12px rgba(30,32,51,.45), 0 2px 0 rgba(30,32,51,.08)",
+        "purpose": "Placas de rampa sobre el hormigón."
+      },
+      {
+        "name": "console",
+        "value": "0 18px 36px -18px rgba(30,32,51,.6)",
+        "purpose": "Panel del informe."
+      },
+      {
+        "name": "key-bevel",
+        "value": "inset 0 -5px 0 rgba(0,0,0,.22)",
+        "purpose": "Botón de despegue; baja a -2px al pulsar."
+      },
+      {
+        "name": "led",
+        "value": "0 0 0 4px rgba(47,191,113,.22), 0 0 12px 2px rgba(47,191,113,.55)",
+        "purpose": "Piloto encendido; único brillo."
+      }
+    ],
+    "motion": [
+      {
+        "name": "liftoff",
+        "value": "1.15s cubic-bezier(.55,0,.85,.35) .28s",
+        "purpose": "Despegue del cohete antes de navegar."
+      },
+      {
+        "name": "settle",
+        "value": ".35s cubic-bezier(.2,.9,.3,1)",
+        "purpose": "Cohete que se eleva 8px al pasar el ratón."
+      },
+      {
+        "name": "orbit",
+        "value": "24s linear infinite",
+        "purpose": "Satélite del planeta; pausado con reducir movimiento."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "scroll-row",
+        "value": "1020px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón de despegue",
+      "kind": "button",
+      "refersTo": "button-launch",
+      "description": "Acción de cada rampa, con los colores del juego.",
+      "html": "<span class=\"ds-go\">Despegar <svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 19V5M5 12l7-7 7 7\"/></svg></span>",
+      "css": ".ds-go{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 32px;border-radius:999px;font-family:Fredoka,Andika,sans-serif;font-weight:700;font-size:1.3rem;background:#0D1233;color:#FFD84D;box-shadow:inset 0 -5px 0 rgba(0,0,0,.22);transition:transform .2s cubic-bezier(.2,.9,.3,1)}.ds-go:hover{transform:translateY(-2px)}.ds-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.22)}"
+    },
+    {
+      "name": "Chip de asignatura",
+      "kind": "chip",
+      "refersTo": "chip-subject",
+      "description": "Asignatura y curso de cada juego.",
+      "html": "<span class=\"ds-tag\">Matemáticas · 1.º a 6.º</span>",
+      "css": ".ds-tag{display:inline-block;font-family:Fredoka,Andika,sans-serif;font-weight:600;font-size:.95rem;padding:3px 12px;border-radius:999px;background:#E4E6FF;color:#1C2470}"
+    },
+    {
+      "name": "Placa de rampa",
+      "kind": "card",
+      "refersTo": "plate-game",
+      "description": "Consola bajo cada cohete.",
+      "html": "<div class=\"ds-plate\"><h3>Palabra Secreta</h3><p>Sigue las pistas de Lupi y descubre la palabra.</p></div>",
+      "css": ".ds-plate{background:#FFFDF7;border:3px solid #1E2033;border-radius:20px;padding:18px;box-shadow:0 14px 28px -12px rgba(30,32,51,.45);font-family:Andika,sans-serif;color:#4A4C66}.ds-plate h3{margin:0 0 8px;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.6rem;color:#1E2033}.ds-plate p{margin:0}"
+    },
+    {
+      "name": "Rampa vacía",
+      "kind": "custom",
+      "refersTo": "plate-slot",
+      "description": "Hueco para un juego futuro.",
+      "html": "<div class=\"ds-slot\"><small>Rampa 3</small><h3>Próximo lanzamiento</h3></div>",
+      "css": ".ds-slot{border:3px dashed #A79C86;border-radius:20px;padding:18px;background:#ECE5D6;font-family:Fredoka,sans-serif;color:#4A4C66}.ds-slot small{font-weight:600;color:#6B6250}.ds-slot h3{margin:4px 0 0;font-weight:700}"
+    },
+    {
+      "name": "Panel de la base",
+      "kind": "custom",
+      "refersTo": "console",
+      "description": "Consola con pilotos para docentes y familias.",
+      "html": "<ul class=\"ds-console\"><li><i></i><b>Sin cuentas</b><span>Se juega al momento.</span></li></ul>",
+      "css": ".ds-console{list-style:none;margin:0;padding:24px;background:#1E2033;color:#F6F1FF;border-radius:24px}.ds-console li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}.ds-console i{width:14px;height:14px;margin-top:6px;border-radius:50%;background:#2FBF71;box-shadow:0 0 0 4px rgba(47,191,113,.22),0 0 12px 2px rgba(47,191,113,.55)}.ds-console b{font-family:Fredoka,sans-serif;font-weight:600}.ds-console span{grid-column:2;color:#C9C3F2;font-family:Andika,sans-serif}"
+    },
+    {
+      "name": "Franja de seguridad",
+      "kind": "custom",
+      "description": "Línea del horizonte entre cielo y hormigón.",
+      "html": "<div class=\"ds-stripe\"></div>",
+      "css": ".ds-stripe{height:16px;background:repeating-linear-gradient(-45deg,#FFD23F 0 14px,#1E2033 14px 28px)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La base de lanzamiento",
+    "overview": "Cada juego es un cohete en su rampa; elegir es despegar. Las rampas vacías prometen más juegos.",
+    "keyCharacteristics": [
+      "Cielo de crepúsculo sobre hormigón",
+      "Cohetes con los colores de cada juego",
+      "Un único momento animado: el despegue",
+      "Fredoka para rótulos, Andika para leer"
+    ],
+    "rules": [
+      {
+        "name": "Cada juego trae su pintura",
+        "body": "La plataforma pone cielo, hormigón y tinta; los colores del cohete y del botón son del juego.",
+        "section": "colors"
+      },
+      {
+        "name": "Verde solo en luces",
+        "body": "El verde aparece únicamente en los pilotos del panel.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Textos de una línea para alumnos",
+      "Dejar una rampa vacía visible",
+      "Respetar reducir movimiento"
+    ],
+    "donts": [
+      "Texto sobre el degradado del horizonte",
+      "Tarjetas genéricas de icono y texto",
+      "Etiquetas sobre los títulos o emojis como iconos"
+    ]
+  }
+}
