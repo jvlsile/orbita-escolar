@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0D1233">
+<title>Órbita Escolar</title>
+<style>
+:root{color-scheme:dark;--bg:#0D1233;--panel:#1A2262;--line:#3B49B0;--ink:#F4F2FF;--ink2:#B7BEF0;--lemon:#FFD84D}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:400 17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:32px 16px}
+main{max-width:860px;margin:0 auto;display:grid;gap:20px}
+h1{margin:0;font-size:clamp(32px,7vw,52px);line-height:1.05}
+h1 span{color:var(--lemon)}
+p{margin:0;color:var(--ink2)}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+a.game{display:flex;gap:14px;align-items:center;padding:16px;border:2px solid var(--line);border-radius:18px;background:var(--panel);color:inherit;text-decoration:none;min-height:96px}
+a.game:hover,a.game:focus-visible{border-color:var(--lemon);outline:none}
+a.game img{width:64px;height:64px;border-radius:14px;flex:none}
+a.game b{display:block;font-size:20px}
+a.game small{color:var(--ink2);font-size:15px}
+footer{color:var(--ink2);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Órbita <span>Escolar</span></h1><p>Juegos educativos para primaria. Elige un juego para empezar.</p></header>
+  <section class="games" aria-label="Juegos">
+    <a class="game" href="juegos/patrulla-numerica/"><img src="juegos/patrulla-numerica/icons/icon-192.png" alt=""><span><b>Patrulla Numérica</b><small>Matemáticas · 1.º a 6.º. Defiende el planeta resolviendo operaciones.</small></span></a>
+    <a class="game" href="juegos/palabra-secreta/"><img src="juegos/palabra-secreta/icons/icon-192.png" alt=""><span><b>Palabra Secreta</b><small>Lengua · 2.º. Sigue las pistas de Lupi y descubre la palabra.</small></span></a>
+  </section>
+  <footer>Portada provisional. Sin cuentas, anuncios ni envío de datos: el progreso se guarda en cada dispositivo.</footer>
+</main>
+</body>
+</html>
