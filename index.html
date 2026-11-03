@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#121844">
+<meta name="author" content="JvlSile">
+<meta name="copyright" content="© 2026 JvlSile">
 <meta name="description" content="Órbita Escolar: juegos educativos para primaria. Gratis, sin cuentas, sin anuncios y sin conexión.">
 <title>Órbita Escolar</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='16' fill='%23FFD23F'/%3E%3Cellipse cx='32' cy='32' rx='29' ry='10' fill='none' stroke='%23F6F1FF' stroke-width='5' transform='rotate(-20 32 32)'/%3E%3C/svg%3E">
@@ -109,6 +111,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0}
 .install{margin:22px 0 0;color:var(--ink-2);max-width:68ch}
 footer{width:calc(100% - 2*var(--gutter));max-width:1240px;margin:clamp(40px,6vh,64px) auto 0;padding:22px 0 36px;border-top:2px solid var(--concrete-2);color:var(--ink-2);font-size:1rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 footer b{font-family:var(--display);font-weight:700;color:var(--ink)}
+.credits{display:grid;gap:4px}
+.copy{align-self:end;font-family:var(--display);font-weight:600;color:var(--ink)}
 
 /* ---------- Despegue ---------- */
 .launching .rocket{animation:liftoff 1.15s cubic-bezier(.55,0,.85,.35) .28s forwards, rumble .28s linear}
@@ -183,15 +187,18 @@ footer b{font-family:var(--display);font-weight:700;color:var(--ink)}
   <svg class="planet" viewBox="0 0 300 300" aria-hidden="true">
     <defs>
       <radialGradient id="pg" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7EE3C9"/><stop offset=".55" stop-color="#2F9E9A"/><stop offset="1" stop-color="#1B3F6E"/></radialGradient>
+      <radialGradient id="sunglow"><stop offset=".35" stop-color="#FFD23F" stop-opacity=".55"/><stop offset="1" stop-color="#FFD23F" stop-opacity="0"/></radialGradient>
+      <clipPath id="pclip"><circle cx="150" cy="150" r="78"/></clipPath>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.5"/></filter>
+      <g id="sunbody"><circle r="22" fill="url(#sunglow)"/><circle r="10" fill="#FFD23F" stroke="#FFF3B0" stroke-width="2.5"/></g>
     </defs>
-    <ellipse id="orb" cx="150" cy="150" rx="142" ry="46" fill="none" stroke="#C9C3F2" stroke-opacity=".5" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round" transform="rotate(-18 150 150)"/>
+    <g transform="rotate(-18 150 150)"><path d="M8 150a142 46 0 0 1 284 0" fill="none" stroke="#C9C3F2" stroke-opacity=".5" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/></g>
+    <use id="sunBack" href="#sunbody" x="-100" y="-100"/>
     <circle cx="150" cy="150" r="78" fill="url(#pg)"/>
     <path d="M96 118c22 8 34-6 56 2s18 26 44 22M84 170c26-6 40 10 70 4s34-18 58-10" stroke="#BDF3E3" stroke-opacity=".5" stroke-width="7" stroke-linecap="round" fill="none"/>
-    <path d="M150 72a78 78 0 0 1 0 156a78 78 0 0 0 0-156" fill="#121844" opacity=".28"/>
-    <g>
-      <circle r="8" fill="#FFD23F" stroke="#121844" stroke-width="3"/>
-      <animateMotion id="sat" dur="24s" repeatCount="indefinite" path="M8 150a142 46 0 1 0 284 0a142 46 0 1 0-284 0" rotate="0"/>
-    </g>
+    <g clip-path="url(#pclip)"><path id="night" fill="#0B0F33" opacity=".62" filter="url(#soft)" d=""/></g>
+    <g transform="rotate(-18 150 150)"><path d="M292 150a142 46 0 0 1-284 0" fill="none" stroke="#C9C3F2" stroke-opacity=".5" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/></g>
+    <use id="sunFront" href="#sunbody" x="-100" y="-100"/>
   </svg>
   <div class="hello">
     <h1>¿Qué misión despega hoy?</h1>
@@ -285,15 +292,43 @@ footer b{font-family:var(--display);font-weight:700;color:var(--ink)}
 </main>
 
 <footer>
-  <span><b>Órbita Escolar</b> · juegos de primaria hechos en el aula</span>
-  <span>Gratis y sin publicidad</span>
+  <div class="credits">
+    <span><b>Órbita Escolar</b> · juegos de primaria hechos en el aula. Gratis y sin publicidad.</span>
+    <span>Idea, juegos y diseño: <b>JvlSile</b>. Tipografías Fredoka y Andika (SIL Open Font License).</span>
+  </div>
+  <span class="copy">© 2026 JvlSile. Todos los derechos reservados.</span>
 </footer>
 
 <script>
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var planet = document.querySelector('.planet');
-  if (reduce && planet && planet.pauseAnimations) planet.pauseAnimations();
+  // El sol orbita y la sombra del planeta gira para quedar siempre en la cara opuesta.
+  if (planet) {
+    var R = 142, RY = 46, DEPTH = Math.sqrt(R*R - RY*RY), TILT = -18 * Math.PI / 180;
+    var CX = 150, CY = 150, PR = 78;
+    var night = planet.getElementById('night'), back = planet.getElementById('sunBack'), front = planet.getElementById('sunFront');
+    var grad = planet.getElementById('pg');
+    var place = function(theta){
+      var ex = R * Math.cos(theta), ey = RY * Math.sin(theta), z = DEPTH * Math.sin(theta);
+      var x = ex * Math.cos(TILT) - ey * Math.sin(TILT), y = ex * Math.sin(TILT) + ey * Math.cos(TILT);
+      var inFront = z > 0;
+      front.setAttribute('x', inFront ? CX + x : -100); front.setAttribute('y', inFront ? CY + y : -100);
+      back.setAttribute('x', inFront ? -100 : CX + x);  back.setAttribute('y', inFront ? -100 : CY + y);
+      var lx = x / R, ly = y / R, lz = z / R;
+      var phi = Math.atan2(ly, lx) * 180 / Math.PI, k = (PR * Math.abs(lz)).toFixed(2);
+      // Cara oscura: medio limbo opuesto al sol + terminador elíptico.
+      night.setAttribute('d', 'M0 ' + (-PR) + 'A' + PR + ' ' + PR + ' 0 0 0 0 ' + PR + 'A' + k + ' ' + PR + ' 0 0 ' + (lz > 0 ? 1 : 0) + ' 0 ' + (-PR) + 'Z');
+      night.setAttribute('transform', 'translate(' + CX + ' ' + CY + ') rotate(' + phi.toFixed(2) + ')');
+      grad.setAttribute('cx', (50 + lx * 22).toFixed(1) + '%'); grad.setAttribute('cy', (50 + ly * 22).toFixed(1) + '%');
+    };
+    if (reduce) { place(2.3); }
+    else {
+      var t0 = null, PERIOD = 24000;
+      var tick = function(t){ if (t0 === null) t0 = t; place(2.3 + (t - t0) / PERIOD * Math.PI * 2); requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }
+  }
   document.querySelectorAll('.pad > a').forEach(function(a){
     a.addEventListener('click', function(e){
       if (reduce || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;

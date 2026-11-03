@@ -26,3 +26,9 @@ Cambia sus archivos y sube el número `VERSION` de su `sw.js`, para que los disp
 - Palabra Secreta: copia de `jvlsile/palabra-secreta`, sin cambios.
 
 Los repositorios originales no se han modificado.
+
+## Créditos
+
+Idea, juegos y diseño: **JvlSile**. Tipografías Fredoka y Andika bajo SIL Open Font License.
+
+© 2026 JvlSile. Todos los derechos reservados.
